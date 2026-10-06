@@ -450,31 +450,127 @@ a {
 }
 
 /* --------------------------------------------------------------------------
-   FEATURED PROJECTS (RECON7 FLAGSHIP SPOTLIGHT)
+   FEATURED PROJECTS & CLOUD ARCHITECTURE DEPLOYMENTS
    -------------------------------------------------------------------------- */
-.projects-flex {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 1.5rem;
+.projects-arch-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.project-box {
+.project-arch-card {
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  transition: border-color var(--transition-smooth), transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.project-arch-card:hover {
+  border-color: var(--border-bright);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+}
+
+.project-arch-card.project-arch-flagship {
+  grid-template-columns: 240px 1fr;
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.project-arch-media {
+  position: relative;
+  background: #08090C;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  cursor: pointer;
+  border-right: 1px solid var(--border-subtle);
+}
+
+.project-arch-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #08090C;
+  padding: 0.75rem;
+  transition: transform var(--transition-smooth);
+}
+
+.project-arch-media:hover .project-arch-img {
+  transform: scale(1.03);
+}
+
+.arch-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(9, 9, 11, 0.55);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--transition-smooth);
+}
+
+.project-arch-media:hover .arch-img-overlay {
+  opacity: 1;
+}
+
+.arch-zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  background: rgba(18, 18, 21, 0.95);
+  border: 1px solid var(--accent-gold);
+  padding: 0.55rem 0.95rem;
+  border-radius: var(--radius-sm);
+  transform: translateY(4px);
+  transition: transform var(--transition-fast), background var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.project-arch-media:hover .arch-zoom-btn {
+  transform: translateY(0);
+}
+
+.flagship-media {
+  background: var(--bg-surface);
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recon7-logo-preview {
+  max-width: 140px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 16px rgba(212, 175, 55, 0.25));
+  transition: transform var(--transition-smooth);
+}
+
+.project-arch-flagship:hover .recon7-logo-preview {
+  transform: scale(1.08);
+}
+
+.project-arch-body {
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.project-box.flagship {
-  border-color: var(--border-bright);
-}
-
 .project-badge-row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
 }
@@ -486,6 +582,7 @@ a {
   text-transform: uppercase;
   padding: 0.2rem 0.5rem;
   border-radius: 3px;
+  letter-spacing: 0.03em;
 }
 
 .badge-gold {
@@ -499,19 +596,288 @@ a {
   color: var(--text-body);
 }
 
+.badge-link {
+  background: var(--accent-muted-gold);
+  color: var(--accent-gold);
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all var(--transition-fast);
+}
+
+.badge-link:hover {
+  background: var(--accent-gold);
+  color: #09090B;
+}
+
 .project-heading {
   font-family: var(--font-serif);
-  font-size: 1.5rem;
+  font-size: 1.45rem;
   font-weight: 600;
   color: var(--text-main);
   margin-bottom: 0.5rem;
+  line-height: 1.25;
 }
 
 .project-summary {
-  font-size: 0.9rem;
+  font-size: 0.885rem;
   color: var(--text-body);
   line-height: 1.6;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.15rem;
+}
+
+/* Architecture Pillars Grid */
+.arch-pillars-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem 1rem;
+  margin-bottom: 1.15rem;
+  padding: 0.9rem 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.pillar-item {
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.pillar-name {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  display: block;
+  margin-bottom: 0.15rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.pillar-desc {
+  color: var(--text-body);
+}
+
+.inline-code {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background: var(--bg-surface-elevated);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  color: var(--accent-titanium);
+}
+
+.project-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.15rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.btn-arch-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-bright);
+  color: var(--text-main);
+}
+
+.btn-arch-action:hover {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold);
+  color: #09090B;
+}
+
+.btn-arch-secondary {
+  background: transparent;
+  border-color: var(--border-subtle);
+  color: var(--text-muted);
+}
+
+.btn-arch-secondary:hover {
+  border-color: var(--text-main);
+  color: var(--text-main);
+  background: var(--bg-surface);
+}
+
+/* --------------------------------------------------------------------------
+   ARCHITECTURE DIAGRAM LIGHTBOX MODAL
+   -------------------------------------------------------------------------- */
+.arch-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.arch-lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.arch-lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(5, 5, 8, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+.arch-lightbox-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1120px;
+  max-height: 92vh;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.7);
+  transform: scale(0.95);
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.arch-lightbox.active .arch-lightbox-container {
+  transform: scale(1);
+}
+
+.arch-lightbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+}
+
+.arch-lightbox-badge {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.arch-lightbox-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-top: 0.15rem;
+}
+
+.arch-lightbox-close {
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.arch-lightbox-close:hover {
+  background: var(--bg-main);
+  color: var(--text-main);
+  border-color: var(--border-bright);
+}
+
+.arch-lightbox-body {
+  padding: 1rem;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #060709;
+  min-height: 320px;
+  max-height: 66vh;
+}
+
+.arch-lightbox-img {
+  max-width: 100%;
+  max-height: 64vh;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.arch-lightbox-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.85rem 1.5rem;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+.arch-lightbox-desc {
+  color: var(--text-body);
+  max-width: 75%;
+}
+
+.arch-lightbox-hint {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+}
+
+.arch-lightbox-hint kbd {
+  background: var(--bg-main);
+  border: 1px solid var(--border-subtle);
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Light Theme Mode Lightbox & Media Overrides */
+[data-theme="light"] .project-arch-media {
+  background: #F0F1F5;
+}
+
+[data-theme="light"] .project-arch-img {
+  background: #F0F1F5;
+}
+
+[data-theme="light"] .arch-lightbox-backdrop {
+  background: rgba(240, 240, 245, 0.88);
+}
+
+[data-theme="light"] .arch-lightbox-body {
+  background: #ECECF0;
+}
+
+[data-theme="light"] .arch-lightbox-img {
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
 /* --------------------------------------------------------------------------
@@ -613,7 +979,18 @@ a {
     aspect-ratio: 531 / 612;
   }
 
-  .projects-flex {
+  .project-arch-card,
+  .project-arch-card.project-arch-flagship {
+    grid-template-columns: 1fr;
+  }
+
+  .project-arch-media {
+    min-height: 240px;
+    border-right: none;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .arch-pillars-grid {
     grid-template-columns: 1fr;
   }
 

@@ -88,4 +88,64 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // 6. Architecture Diagram Lightbox Modal
+  const archLightbox = document.getElementById('archLightbox');
+  const archLightboxImg = document.getElementById('archLightboxImg');
+  const archLightboxTitle = document.getElementById('archLightboxTitle');
+  const archLightboxDesc = document.getElementById('archLightboxDesc');
+  const archLightboxCloseBtn = document.getElementById('archLightboxCloseBtn');
+  const archLightboxBackdrop = document.getElementById('archLightboxBackdrop');
+
+  function openLightbox(title, imgSrc, desc) {
+    if (!archLightbox || !archLightboxImg) return;
+    archLightboxImg.src = imgSrc;
+    archLightboxImg.alt = title || 'Architecture Diagram';
+    if (archLightboxTitle) archLightboxTitle.textContent = title || 'Production Architecture';
+    if (archLightboxDesc) archLightboxDesc.textContent = desc || '';
+    archLightbox.classList.add('active');
+    archLightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (!archLightbox) return;
+    archLightbox.classList.remove('active');
+    archLightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Bind click listeners for all architecture project cards
+  const archCards = document.querySelectorAll('.project-arch-card[data-arch-img]');
+  archCards.forEach((card) => {
+    const imgSrc = card.getAttribute('data-arch-img');
+    const title = card.getAttribute('data-arch-title');
+    const desc = card.getAttribute('data-arch-desc');
+
+    const mediaTrigger = card.querySelector('.project-arch-media');
+    if (mediaTrigger) {
+      mediaTrigger.addEventListener('click', () => openLightbox(title, imgSrc, desc));
+    }
+
+    const btnTrigger = card.querySelector('.view-arch-btn');
+    if (btnTrigger) {
+      btnTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openLightbox(title, imgSrc, desc);
+      });
+    }
+  });
+
+  if (archLightboxCloseBtn) {
+    archLightboxCloseBtn.addEventListener('click', closeLightbox);
+  }
+  if (archLightboxBackdrop) {
+    archLightboxBackdrop.addEventListener('click', closeLightbox);
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && archLightbox && archLightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
 });
